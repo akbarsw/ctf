@@ -3,25 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mini CTF - Tebak Gambar Cupang</title>
+  <title>Mini CTF - Multi Step Challenge</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main class="container">
     <section class="card">
       <p class="badge">Beginner Web Challenge</p>
-      <h1>Mini CTF: Tebak Gambar</h1>
-      <p class="desc">Perhatikan gambar di bawah. Jawab dengan huruf kecil semua.</p>
+      <h1>Mini CTF: Multi Step</h1>
+      <p class="step" id="step-indicator">Step 1/3</p>
 
-      <div class="image-box">
-        <img class="challenge-image" src="data:image/webp;base64,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" alt="Gambar ikan cupang dari base64 upload">
+      <div class="image-box" id="challenge-image">
+        <img class="challenge-image" src="betta.svg" alt="Challenge Image">
       </div>
+
+      <p class="desc" id="question">Perhatikan gambar di bawah. Apa yang ada di gambar ini?</p>
 
       <input id="answer" type="text" placeholder="Masukkan jawaban..." autocomplete="off">
       <button id="submitBtn">Submit</button>
 
       <p id="result"></p>
-      <p class="hint">Hint: ikan hias kecil yang terkenal agresif dan warnanya cantik.</p>
+      <p class="hint" id="hint">Hint: ikan hias kecil yang terkenal agresif dan warnanya cantik.</p>
     </section>
   </main>
 
