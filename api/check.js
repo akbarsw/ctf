@@ -61,7 +61,7 @@ export default function handler(req, res) {
     // b-u-a-t-a-n = a(2), u(1) = 3
     // Total = 8
     const normalize = (s) => s?.trim().toLowerCase().replace(/\s+/g, '');
-    if (normalize(answer) === '8' || normalize(answer) === 'delapan') {
+    if (normalize(answer) === '7' || normalize(answer) === 'tujuh') {
       const finalToken = Buffer.from(JSON.stringify({
         step: 3,
         exp: now + 300000,
