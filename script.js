@@ -12,20 +12,21 @@ let lastSubmit = 0;
 
 const steps = {
   1: {
-    question: "Perhatikan gambar di bawah. Apa yang ada di gambar ini?",
+    question: "Perhatikan gambar berikut. Apa yang ada di dalam bingkai biru? (Format: tulis nama ikannya)",
     hint: "Hint: ikan hias kecil yang terkenal agresif dan warnanya cantik.",
-    showImage: true
+    showImage: true,
+    imageSrc: "step3.png"
   },
   2: {
+    question: "Perhatikan gambar di bawah. Apa yang ada di gambar ini?",
+    hint: "Hint: ikan hias kecil yang terkenal agresif dan warnanya cantik.",
+    showImage: true,
+    imageSrc: "betta.svg"
+  },
+  3: {
     question: "Berapa jumlah huruf vokal (a, e, i, o, u) dalam kalimat 'kecerdasan buatan'?",
     hint: "Hint: Hitung huruf a, e, i, o, u saja. Spasi tidak dihitung.",
     showImage: false
-  },
-  3: {
-    question: "Perhatikan gambar berikut. Apa yang ada di dalam bingkai biru? (Format: tulis nama ikannya)",
-    hint: "Hint: ikan hias kecil yang terkenal agresif dan warnanya cantik. Jawaban sama dengan Step 1.",
-    showImage: true,
-    imageSrc: "step3.png"
   }
 };
 
@@ -37,7 +38,7 @@ function updateUI() {
   challengeImage.style.display = step.showImage ? "block" : "none";
   if (step.showImage) {
     const img = challengeImage.querySelector('img');
-    img.src = step.imageSrc || "betta.svg";
+    img.src = step.imageSrc;
   }
 }
 

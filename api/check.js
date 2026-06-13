@@ -13,93 +13,112 @@ export default function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { step, answer, token } = req.body;
+  try {
+    const { step, answer, token } = req.body;
+    const now = Date.now();
 
-  // Rate limiting (simple in-memory)
-  const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-  if (!globalThis._rateLimit) globalThis._rateLimit = {};
-  const now = Date.now();
-  if (globalThis._rateLimit[ip] && now - globalThis._rateLimit[ip] < 3000) {
-    return res.status(429).json({ error: 'Terlalu cepat! Tunggu 3 detik.' });
-  }
-  globalThis._rateLimit[ip] = now;
-
-  // === STEP 1: Tebak gambar ===
-  if (step === 1) {
-    const normalize = (s) => s?.trim().toLowerCase().replace(/\s+/g, ' ');
-    if (normalize(answer) === 'anak cupang') {
-      // Beri token terenkripsi untuk step berikutnya
-      const nextToken = Buffer.from(JSON.stringify({
-        step: 2,
-        exp: now + 300000, // 5 menit expiry
-        hash: 'a7f3b2c1'  // simple integrity check
-      })).toString('base64');
-      return res.json({
-        correct: true,
-        message: 'Benar! Tapi belum selesai... Lanjut ke Step 2.',
-        token: nextToken
-      });
+    // Rate limit sederhana
+    if (!global.lastRequest) global.lastRequest = {};
+    const clientIp = req.headers['x-forwarded-for'] || 'local';
+    if (global.lastRequest[clientIp] && now - global.lastRequest[clientIp] < 3000) {
+      return res.status(429).json({ error: 'Rate limit. Tunggu 3 detik.' });
     }
-    return res.json({ correct: false, message: 'Salah. Perhatikan gambar dan hint.' });
-  }
+    global.lastRequest[clientIp] = now;
 
-  // === STEP 2: Puzzle logika ===
-  if (step === 2) {
-    try {
-      const decoded = JSON.parse(Buffer.from(token, 'base64').toString());
-      if (decoded.step !== 2 || decoded.exp < now || decoded.hash !== 'a7f3b2c1') {
-        return res.status(403).json({ error: 'Token tidak valid atau expired.' });
+    // Step 1: Tebak gambar - ikan cupang (PNG)
+    if (step === 1) {
+      if (!answer) {
+        return res.status(400).json({ correct: false, message: 'Jawaban tidak boleh kosong' });
       }
-    } catch {
-      return res.status(403).json({ error: 'Token tidak valid.' });
-    }
 
-    // Jawaban: "tujuh" (7 huruf di "cupang" → tapi soalnya beda)
-    // Soal: "Berapa jumlah huruf vokal dalam kata 'kecerdasan buatan'?"
-    // a, e, a, a, u, a, a = 7? no...
-    // k-e-c-e-r-d-a-s-a-n = a(3), e(2) = 5
-    // b-u-a-t-a-n = a(2), u(1) = 3
-    // Total = 8
-    const normalize = (s) => s?.trim().toLowerCase().replace(/\s+/g, '');
-    if (normalize(answer) === '7' || normalize(answer) === 'tujuh') {
-      const finalToken = Buffer.from(JSON.stringify({
-        step: 3,
-        exp: now + 300000,
-        hash: 'd4e5f6a7'
-      })).toString('base64');
-      return res.json({
-        correct: true,
-        message: 'Benar! Satu step lagi...',
-        token: finalToken
-      });
-    }
-    return res.json({ correct: false, message: 'Hitung lagi huruf vokalnya (a, e, i, o, u).' });
-  }
+      const normalize = (s) => s?.trim().toLowerCase().replace(/\s+/g, ' ');
+      if (normalize(answer) === 'anak cupang' || normalize(answer) === 'cupang') {
+        const step1Token = Buffer.from(JSON.stringify({
+          step: 2,
+          exp: now + 300000, // 5 menit
+          hash: 'a1b2c3'
+        })).toString('base64');
 
-  // === STEP 3: Decode Base64 ===
-  if (step === 3) {
-    try {
-      const decoded = JSON.parse(Buffer.from(token, 'base64').toString());
-      if (decoded.step !== 3 || decoded.exp < now || decoded.hash !== 'd4e5f6a7') {
-        return res.status(403).json({ error: 'Token tidak valid atau expired.' });
+        return res.status(200).json({
+          correct: true,
+          token: step1Token,
+          message: '✅ Benar! Lanjut ke Step 2...'
+        });
       }
-    } catch {
-      return res.status(403).json({ error: 'Token tidak valid.' });
+      return res.status(200).json({ correct: false, message: 'Coba lagi! Hint: ikan hias kecil yang agresif' });
     }
 
-    // Soal: decode string base64 "Q1RG" = "CTF"
-    // Step 3: Tebak gambar - ikan cupang
-    // Jawaban: anak cupang atau cupang
-    const normalize = (s) => s?.trim().toLowerCase().replace(/\s+/g, ' ');
-    if (normalize(answer) === 'anak cupang' || normalize(answer) === 'cupang') {
-      return res.status(200).json({
-        correct: true,
-        flag: "FLAG{anak_cupang}",
-        message: "🎉 Selamat! Semua challenge selesai! Ini flag lo!"
-      });
+    // Step 2: Tebak gambar - cupang (SVG)
+    if (step === 2) {
+      if (!token) {
+        return res.status(400).json({ correct: false, message: 'Token tidak valid. Ulangi dari Step 1.' });
+      }
+
+      try {
+        const tokenData = JSON.parse(Buffer.from(token, 'base64').toString());
+        if (tokenData.step !== 2 || tokenData.exp < now) {
+          return res.status(400).json({ correct: false, message: 'Token expired atau tidak valid.' });
+        }
+      } catch (e) {
+        return res.status(400).json({ correct: false, message: 'Token tidak valid.' });
+      }
+
+      if (!answer) {
+        return res.status(400).json({ correct: false, message: 'Jawaban tidak boleh kosong' });
+      }
+
+      const normalize = (s) => s?.trim().toLowerCase().replace(/\s+/g, ' ');
+      if (normalize(answer) === 'anak cupang' || normalize(answer) === 'cupang') {
+        const step2Token = Buffer.from(JSON.stringify({
+          step: 3,
+          exp: now + 300000,
+          hash: 'd4e5f6'
+        })).toString('base64');
+
+        return res.status(200).json({
+          correct: true,
+          token: step2Token,
+          message: '✅ Benar! Lanjut ke Step 3...'
+        });
+      }
+      return res.status(200).json({ correct: false, message: 'Coba lagi! Hint: perhatikan gambar dengan seksama' });
     }
-    return res.json({ correct: false, message: 'Decode base64-nya dulu: Q1RG' });
+
+    // Step 3: Hitung huruf vokal
+    if (step === 3) {
+      if (!token) {
+        return res.status(400).json({ correct: false, message: 'Token tidak valid. Ulangi dari Step 1.' });
+      }
+
+      try {
+        const tokenData = JSON.parse(Buffer.from(token, 'base64').toString());
+        if (tokenData.step !== 3 || tokenData.exp < now) {
+          return res.status(400).json({ correct: false, message: 'Token expired atau tidak valid.' });
+        }
+      } catch (e) {
+        return res.status(400).json({ correct: false, message: 'Token tidak valid.' });
+      }
+
+      if (!answer) {
+        return res.status(400).json({ correct: false, message: 'Jawaban tidak boleh kosong' });
+      }
+
+      // "kecerdasan buatan" = 7 vokal (e, e, a, a, u, a, a)
+      const normalize = (s) => s?.trim().toLowerCase().replace(/\s+/g, '');
+      if (normalize(answer) === '7' || normalize(answer) === 'tujuh') {
+        return res.status(200).json({
+          correct: true,
+          flag: "FLAG{anak_cupang}",
+          message: "🎉 Selamat! Semua challenge selesai! Ini flag lo!"
+        });
+      }
+      return res.status(200).json({ correct: false, message: 'Coba lagi! Hint: hitung huruf a, e, i, o, u' });
+    }
+
+    return res.status(400).json({ error: 'Step tidak valid' });
+
+  } catch (error) {
+    console.error('Error:', error);
+    return res.status(500).json({ error: 'Server error' });
   }
-
-  return res.status(400).json({ error: 'Step tidak valid.' });
 }
