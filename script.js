@@ -22,9 +22,10 @@ const steps = {
     showImage: false
   },
   3: {
-    question: "Decode string berikut dari Base64: Q1RG",
-    hint: "Hint: Base64 mengubah teks menjadi karakter A-Z, a-z, 0-9, +, /. Coba gunakan atob() atau situs decode online.",
-    showImage: false
+    question: "Perhatikan gambar berikut. Apa yang ada di dalam bingkai biru? (Format: tulis nama ikannya)",
+    hint: "Hint: ikan hias kecil yang terkenal agresif dan warnanya cantik. Jawaban sama dengan Step 1.",
+    showImage: true,
+    imageSrc: "step3.png"
   }
 };
 
@@ -34,6 +35,10 @@ function updateUI() {
   question.textContent = step.question;
   hint.textContent = step.hint;
   challengeImage.style.display = step.showImage ? "block" : "none";
+  if (step.showImage) {
+    const img = challengeImage.querySelector('img');
+    img.src = step.imageSrc || "betta.svg";
+  }
 }
 
 async function checkAnswer() {

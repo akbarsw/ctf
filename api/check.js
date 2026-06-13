@@ -88,13 +88,14 @@ export default function handler(req, res) {
     }
 
     // Soal: decode string base64 "Q1RG" = "CTF"
-    // User harus ketik "CTF"
-    const normalize = (s) => s?.trim().toUpperCase();
-    if (normalize(answer) === 'CTF') {
-      return res.json({
+    // Step 3: Tebak gambar - ikan cupang
+    // Jawaban: anak cupang atau cupang
+    const normalize = (s) => s?.trim().toLowerCase().replace(/\s+/g, ' ');
+    if (normalize(answer) === 'anak cupang' || normalize(answer) === 'cupang') {
+      return res.status(200).json({
         correct: true,
-        flag: 'CTF{anak_cupang_multi_step}',
-        message: '🎉 Selamat! Kamu berhasil menyelesaikan semua step!'
+        flag: "FLAG{anak_cupang}",
+        message: "🎉 Selamat! Semua challenge selesai! Ini flag lo!"
       });
     }
     return res.json({ correct: false, message: 'Decode base64-nya dulu: Q1RG' });
