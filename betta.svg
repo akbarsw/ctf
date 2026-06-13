@@ -1,0 +1,18 @@
+<svg width="520" height="320" viewBox="0 0 520 320" xmlns="http://www.w3.org/2000/svg">
+  <rect width="520" height="320" rx="28" fill="#052e46"/>
+  <circle cx="82" cy="72" r="13" fill="none" stroke="#dff9ff" stroke-width="4" opacity="0.8"/>
+  <circle cx="117" cy="118" r="9" fill="none" stroke="#dff9ff" stroke-width="4" opacity="0.7"/>
+  <circle cx="425" cy="68" r="11" fill="none" stroke="#dff9ff" stroke-width="4" opacity="0.75"/>
+  <ellipse cx="270" cy="165" rx="92" ry="54" fill="#f97316"/>
+  <ellipse cx="293" cy="158" rx="75" ry="48" fill="#ec4899" opacity="0.85"/>
+  <path d="M178 165 C95 82 72 210 176 168 Z" fill="#8b5cf6" opacity="0.95"/>
+  <path d="M184 170 C93 251 88 120 182 163 Z" fill="#22d3ee" opacity="0.88"/>
+  <path d="M240 115 C285 55 334 80 315 130 Z" fill="#a855f7" opacity="0.8"/>
+  <path d="M244 214 C286 282 345 238 318 188 Z" fill="#06b6d4" opacity="0.8"/>
+  <path d="M355 154 C397 142 397 188 356 176 Z" fill="#f97316"/>
+  <circle cx="332" cy="148" r="9" fill="#020617"/>
+  <circle cx="335" cy="145" r="3" fill="#ffffff"/>
+  <path d="M212 137 C246 154 287 158 332 150" fill="none" stroke="#ffffff" stroke-width="5" opacity="0.28"/>
+  <path d="M218 170 C252 185 294 190 338 176" fill="none" stroke="#ffffff" stroke-width="5" opacity="0.22"/>
+  <text x="260" y="292" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#dff9ff">Tebak gambar: ikan hias berwarna cantik</text>
+</svg>
