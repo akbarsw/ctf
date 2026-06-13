@@ -2,18 +2,22 @@ const submitBtn = document.getElementById("submitBtn");
 const answerInput = document.getElementById("answer");
 const result = document.getElementById("result");
 
-const flagParts = ["CTF", "{", "ikan", "_", "cupang", "_", "cantik", "}"];
-const correctAnswers = ["cupang", "ikan cupang"];
+const flagParts = ["CTF", "{", "anak", "_", "cupang", "}"];
+const correctAnswer = "anak cupang";
+
+function normalizeAnswer(text) {
+  return text.trim().toLowerCase().replace(/\s+/g, " ");
+}
 
 function checkAnswer() {
-  const userAnswer = answerInput.value.trim().toLowerCase();
+  const userAnswer = normalizeAnswer(answerInput.value);
 
-  if (correctAnswers.includes(userAnswer)) {
+  if (userAnswer === correctAnswer) {
     result.style.color = "#22c55e";
     result.textContent = "Benar! Flag: " + flagParts.join("");
   } else {
     result.style.color = "#ef4444";
-    result.textContent = "Salah. Coba perhatikan bentuk ikan hias di dalam gambar.";
+    result.textContent = "Salah. Coba perhatikan gambar dan hint-nya lagi.";
   }
 }
 
