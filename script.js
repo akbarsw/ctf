@@ -12,7 +12,7 @@ let lastSubmit = 0;
 
 const steps = {
   1: {
-    question: "Perhatikan gambar berikut. Apa yang ada di dalam bingkai biru? (Format: tulis nama ikannya)",
+    question: "Perhatikan gambar berikut. Apa yang ada di dalam bingkai biru?
     hint: "Hint: ikan hias kecil yang terkenal agresif dan warnanya cantik.",
     showImage: true,
     imageSrc: "step3.png"
