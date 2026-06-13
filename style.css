@@ -11,7 +11,7 @@ body {
 
 .container {
   width: 90%;
-  max-width: 520px;
+  max-width: 560px;
 }
 
 .card {
@@ -42,48 +42,142 @@ h1 {
 
 .image-box {
   margin: 24px auto;
-  padding: 28px;
+  padding: 20px;
   background: #020617;
   border: 1px solid #334155;
   border-radius: 14px;
 }
 
-.circle {
-  width: 180px;
-  height: 180px;
-  background: linear-gradient(135deg, #0d9488, #2563eb);
-  border-radius: 50%;
+.aquarium {
+  width: 100%;
+  max-width: 390px;
+  height: 230px;
   margin: auto;
+  border-radius: 18px;
   position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.18), transparent 13%),
+    linear-gradient(180deg, #0ea5e9 0%, #164e63 100%);
 }
 
-.roof {
-  width: 0;
-  height: 0;
-  border-left: 52px solid transparent;
-  border-right: 52px solid transparent;
-  border-bottom: 48px solid #f8fafc;
+.aquarium::after {
+  content: "";
   position: absolute;
-  top: 42px;
-  left: 38px;
-}
-
-.house {
-  width: 78px;
-  height: 58px;
-  background: #f8fafc;
-  position: absolute;
-  top: 90px;
-  left: 51px;
-}
-
-.door {
-  width: 18px;
-  height: 30px;
-  background: #0e7490;
-  position: absolute;
+  left: 0;
+  right: 0;
   bottom: 0;
-  left: 30px;
+  height: 34px;
+  background: rgba(15, 23, 42, 0.35);
+}
+
+.betta-fish {
+  position: absolute;
+  width: 220px;
+  height: 125px;
+  left: 88px;
+  top: 55px;
+}
+
+.body-fish {
+  width: 118px;
+  height: 78px;
+  position: absolute;
+  right: 18px;
+  top: 24px;
+  border-radius: 60% 45% 45% 60%;
+  background: linear-gradient(135deg, #f97316, #ec4899 55%, #8b5cf6);
+  box-shadow: inset -12px -8px 18px rgba(0, 0, 0, 0.18);
+}
+
+.body-fish::before {
+  content: "";
+  position: absolute;
+  width: 28px;
+  height: 20px;
+  right: -13px;
+  top: 29px;
+  background: #f97316;
+  border-radius: 0 70% 70% 0;
+}
+
+.eye {
+  width: 10px;
+  height: 10px;
+  background: #020617;
+  border: 2px solid #f8fafc;
+  border-radius: 50%;
+  position: absolute;
+  right: 18px;
+  top: 24px;
+}
+
+.tail,
+.fin {
+  position: absolute;
+  background: linear-gradient(135deg, #f43f5e, #a855f7, #22d3ee);
+  opacity: 0.95;
+}
+
+.tail-top {
+  width: 98px;
+  height: 82px;
+  left: 6px;
+  top: 5px;
+  border-radius: 80% 18% 75% 20%;
+  transform: rotate(-16deg);
+}
+
+.tail-bottom {
+  width: 108px;
+  height: 82px;
+  left: 0;
+  bottom: 0;
+  border-radius: 20% 70% 18% 80%;
+  transform: rotate(18deg);
+}
+
+.fin-top {
+  width: 58px;
+  height: 30px;
+  left: 25px;
+  top: -18px;
+  border-radius: 70% 70% 20% 20%;
+}
+
+.fin-bottom {
+  width: 68px;
+  height: 34px;
+  left: 20px;
+  bottom: -22px;
+  border-radius: 20% 20% 80% 80%;
+}
+
+.bubble {
+  width: 14px;
+  height: 14px;
+  position: absolute;
+  border: 2px solid rgba(255, 255, 255, 0.75);
+  border-radius: 50%;
+}
+
+.bubble-one {
+  left: 52px;
+  top: 42px;
+}
+
+.bubble-two {
+  left: 72px;
+  top: 82px;
+  width: 9px;
+  height: 9px;
+}
+
+.bubble-three {
+  right: 58px;
+  top: 38px;
+  width: 11px;
+  height: 11px;
 }
 
 input {
