@@ -48,7 +48,7 @@ export default function handler(req, res) {
       return res.status(200).json({ correct: false, message: 'Coba lagi! Hint: ikan hias kecil yang agresif' });
     }
 
-    // Step 2: Tebak gambar - cupang (SVG)
+    // Step 2: Hitung huruf vokal
     if (step === 2) {
       if (!token) {
         return res.status(400).json({ correct: false, message: 'Token tidak valid. Ulangi dari Step 1.' });
@@ -57,42 +57,6 @@ export default function handler(req, res) {
       try {
         const tokenData = JSON.parse(Buffer.from(token, 'base64').toString());
         if (tokenData.step !== 2 || tokenData.exp < now) {
-          return res.status(400).json({ correct: false, message: 'Token expired atau tidak valid.' });
-        }
-      } catch (e) {
-        return res.status(400).json({ correct: false, message: 'Token tidak valid.' });
-      }
-
-      if (!answer) {
-        return res.status(400).json({ correct: false, message: 'Jawaban tidak boleh kosong' });
-      }
-
-      const normalize = (s) => s?.trim().toLowerCase().replace(/\s+/g, ' ');
-      if (normalize(answer) === 'anak cupang' || normalize(answer) === 'cupang') {
-        const step2Token = Buffer.from(JSON.stringify({
-          step: 3,
-          exp: now + 300000,
-          hash: 'd4e5f6'
-        })).toString('base64');
-
-        return res.status(200).json({
-          correct: true,
-          token: step2Token,
-          message: '✅ Benar! Lanjut ke Step 3...'
-        });
-      }
-      return res.status(200).json({ correct: false, message: 'Coba lagi! Hint: perhatikan gambar dengan seksama' });
-    }
-
-    // Step 3: Hitung huruf vokal
-    if (step === 3) {
-      if (!token) {
-        return res.status(400).json({ correct: false, message: 'Token tidak valid. Ulangi dari Step 1.' });
-      }
-
-      try {
-        const tokenData = JSON.parse(Buffer.from(token, 'base64').toString());
-        if (tokenData.step !== 3 || tokenData.exp < now) {
           return res.status(400).json({ correct: false, message: 'Token expired atau tidak valid.' });
         }
       } catch (e) {

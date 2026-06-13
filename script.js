@@ -18,12 +18,6 @@ const steps = {
     imageSrc: "step3.png"
   },
   2: {
-    question: "Perhatikan gambar di bawah. Apa yang ada di gambar ini?",
-    hint: "Hint: ikan hias kecil yang terkenal agresif dan warnanya cantik.",
-    showImage: true,
-    imageSrc: "betta.svg"
-  },
-  3: {
     question: "Berapa jumlah huruf vokal (a, e, i, o, u) dalam kalimat 'kecerdasan buatan'?",
     hint: "Hint: Hitung huruf a, e, i, o, u saja. Spasi tidak dihitung.",
     showImage: false
@@ -32,7 +26,7 @@ const steps = {
 
 function updateUI() {
   const step = steps[currentStep];
-  stepIndicator.textContent = `Step ${currentStep}/3`;
+  stepIndicator.textContent = `Step ${currentStep}/2`;
   question.textContent = step.question;
   hint.textContent = step.hint;
   challengeImage.style.display = step.showImage ? "block" : "none";
