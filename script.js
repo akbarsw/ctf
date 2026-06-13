@@ -2,18 +2,18 @@ const submitBtn = document.getElementById("submitBtn");
 const answerInput = document.getElementById("answer");
 const result = document.getElementById("result");
 
-const flagParts = ["CTF", "{", "rumah", "_", "di", "_", "tengah", "_", "lingkaran", "}"];
-const correctAnswer = "rumah";
+const flagParts = ["CTF", "{", "ikan", "_", "cupang", "_", "cantik", "}"];
+const correctAnswers = ["cupang", "ikan cupang"];
 
 function checkAnswer() {
   const userAnswer = answerInput.value.trim().toLowerCase();
 
-  if (userAnswer === correctAnswer) {
+  if (correctAnswers.includes(userAnswer)) {
     result.style.color = "#22c55e";
     result.textContent = "Benar! Flag: " + flagParts.join("");
   } else {
     result.style.color = "#ef4444";
-    result.textContent = "Salah. Coba perhatikan bentuk putih di tengah gambar.";
+    result.textContent = "Salah. Coba perhatikan bentuk ikan hias di dalam gambar.";
   }
 }
 
