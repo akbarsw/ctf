@@ -1,0 +1,116 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: #e5e7eb;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 90%;
+  max-width: 520px;
+}
+
+.card {
+  background: #111827;
+  padding: 28px;
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+}
+
+.badge {
+  display: inline-block;
+  padding: 6px 12px;
+  background: #0e7490;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+h1 {
+  color: #38bdf8;
+}
+
+.desc,
+.hint {
+  color: #cbd5e1;
+}
+
+.image-box {
+  margin: 24px auto;
+  padding: 28px;
+  background: #020617;
+  border: 1px solid #334155;
+  border-radius: 14px;
+}
+
+.circle {
+  width: 180px;
+  height: 180px;
+  background: linear-gradient(135deg, #0d9488, #2563eb);
+  border-radius: 50%;
+  margin: auto;
+  position: relative;
+}
+
+.roof {
+  width: 0;
+  height: 0;
+  border-left: 52px solid transparent;
+  border-right: 52px solid transparent;
+  border-bottom: 48px solid #f8fafc;
+  position: absolute;
+  top: 42px;
+  left: 38px;
+}
+
+.house {
+  width: 78px;
+  height: 58px;
+  background: #f8fafc;
+  position: absolute;
+  top: 90px;
+  left: 51px;
+}
+
+.door {
+  width: 18px;
+  height: 30px;
+  background: #0e7490;
+  position: absolute;
+  bottom: 0;
+  left: 30px;
+}
+
+input {
+  width: 80%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 12px;
+  outline: none;
+}
+
+button {
+  padding: 12px 22px;
+  border: none;
+  border-radius: 8px;
+  background: #38bdf8;
+  color: #020617;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #0ea5e9;
+}
+
+#result {
+  margin-top: 18px;
+  font-weight: bold;
+}
