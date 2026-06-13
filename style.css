@@ -46,14 +46,16 @@ h1 {
   background: #020617;
   border: 1px solid #334155;
   border-radius: 14px;
+  overflow: hidden;
 }
 
 .challenge-image {
   width: 100%;
-  max-width: 420px;
+  max-width: 520px;
   display: block;
-  margin: auto;
+  margin: -70px auto -55px;
   border-radius: 16px;
+  clip-path: inset(22% 0 18% 0);
 }
 
 input {
